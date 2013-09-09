@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>/Users/gregorymjordan/git/java-rss/.README.md.html</title>
+
+
+<style type="text/css">
+
+.markdown-body {
+    border: 1px solid #CACACA;
+    padding: 30px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.markdown-body h2 {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.markdown-body code {
+    white-space: nowrap;
+}
+
+.markdown-body code, .markdown-body tt {
+    background-color: #F8F8F8;
+    border: 1px solid #EAEAEA;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0 2px;
+    padding: 0 5px;
+}
+
+.markdown-body .highlight pre, .markdown-body pre {
+    background-color: #F8F8F8;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+}
+
+.markdown-body img {
+    border: 0 none;
+}
+
+pre, code, tt {
+    font-family: Consolas,"Liberation Mono",Courier,monospace;
+    font-size: 12px;
+}
+</style>
+
+
+<script type="text/javascript">
+
+function getDocumentScrollTop() 
+{
+   var res = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
+   // alert(res);
+   return res;
+}
+
+function setDocumentScrollTop(ypos) 
+{
+	window.scrollTo(0, ypos);
+}
+
+</script>
+
+
+</head>
+<body class="markdown-body">
+<h1>
+<a name="java-rss" class="anchor" href="#java-rss"><span class="octicon octicon-link"></span></a>java-rss</h1>
+
+<p>Updated Java based rss parser based on <a href="https://code.google.com/p/horrorss/">horrorss</a> including:</p>
+
+<ul>
+<li>last build date (with ATOM via updated)</li>
+</ul><p>It requires <a href="http://sparta-xml.sourceforge.net/">Sparta-XML</a></p>
+
+<p>Usage</p>
+
+<div class="highlight highlight-java"><pre><span class="o">...</span>
+<span class="n">RssParser</span> <span class="n">rss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RssParser</span><span class="o">();</span>
+
+<span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// WSJ feed</span>
+    <span class="n">RssFeed</span> <span class="n">rssFeed</span> <span class="o">=</span> <span class="n">rss</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">"http://online.wsj.com/xml/rss/3_7014.xml"</span><span class="o">);</span>
+
+    <span class="c1">// Gets the channel information of the feed and display its title</span>
+    <span class="n">RssChannel</span> <span class="n">rssChannel</span> <span class="o">=</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssChannel</span><span class="o">();</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Title: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Pub Date: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getPubDate</span><span class="o">());</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Last Build Date: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getLastBuildDate</span><span class="o">());</span>
+
+    <span class="c1">// Gets the image of the feed and display the image URL</span>
+    <span class="n">RssImage</span> <span class="n">rssImage</span> <span class="o">=</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssImage</span><span class="o">();</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Image: "</span> <span class="o">+</span> <span class="n">rssImage</span><span class="o">.</span><span class="na">getUrl</span><span class="o">());</span>
+
+    <span class="c1">// Gets and iterate the items of the feed</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">RssItem</span> <span class="n">rssItem</span> <span class="o">:</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssItems</span><span class="o">()){</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Link : "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getLink</span><span class="o">());</span>
+        <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Desc.: "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getDescription</span><span class="o">());</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Something to do if an exception occurs</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">...</span>
+</pre></div>
+</body>
+</html>
