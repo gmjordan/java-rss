@@ -4,9 +4,11 @@ Updated Java based rss parser based on [horrorss](https://code.google.com/p/horr
 
 * last build date (with ATOM via updated)
 
-It requires [Sparta-XML](http://sparta-xml.sourceforge.net/)
+It requires [Sparta-XML](http://sparta-xml.sourceforge.net/). There is no maven dependenct 
 
-Usage
+The java-rss jar is available [here](https://github.com/gmjordan/java-rss/raw/master/target/java-rss-1.0.0.jar)
+
+###Usage
 
 ```java
 ...
