@@ -85,6 +85,13 @@ function setDocumentScrollTop(ypos)
 <a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
 
 <div class="highlight highlight-java"><pre><span class="o">...</span>
+<span class="kn">import</span> <span class="nn">org.apache.log4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.github.gmjordan.javarss.RssParser</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.github.gmjordan.javarss.model.RssChannel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.github.gmjordan.javarss.model.RssFeed</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.github.gmjordan.javarss.model.RssImage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.github.gmjordan.javarss.model.RssItem</span><span class="o">;</span>
+<span class="o">...</span>
 <span class="n">RssParser</span> <span class="n">rss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RssParser</span><span class="o">();</span>
 
 <span class="k">try</span> <span class="o">{</span>

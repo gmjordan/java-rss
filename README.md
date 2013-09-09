@@ -12,6 +12,13 @@ The java-rss jar is available [here](https://github.com/gmjordan/java-rss/raw/ma
 
 ```java
 ...
+import org.apache.log4j.Logger;
+import com.github.gmjordan.javarss.RssParser;
+import com.github.gmjordan.javarss.model.RssChannel;
+import com.github.gmjordan.javarss.model.RssFeed;
+import com.github.gmjordan.javarss.model.RssImage;
+import com.github.gmjordan.javarss.model.RssItem;
+...
 RssParser rss = new RssParser();
 
 try {
