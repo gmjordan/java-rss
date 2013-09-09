@@ -1,6 +1,6 @@
 java-rss
 ========
-Updated Java based rss parser based on [horrorss](https://code.google.com/p/horrorss/) including:
+Java based rss parser based on [horrorss](https://code.google.com/p/horrorss/). Updates include:
 
 * last build date (with ATOM via updated)
 
