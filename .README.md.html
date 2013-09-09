@@ -73,38 +73,37 @@ function setDocumentScrollTop(ypos)
 <h1>
 <a name="java-rss" class="anchor" href="#java-rss"><span class="octicon octicon-link"></span></a>java-rss</h1>
 
-<p>Updated Java based rss parser based on <a href="https://code.google.com/p/horrorss/">horrorss</a> including:</p>
+<p>Java RSS parser based on <a href="https://code.google.com/p/horrorss/">horrorss</a>. Updates include:</p>
 
 <ul>
 <li>last build date (with ATOM via updated)</li>
-</ul><p>It requires <a href="http://sparta-xml.sourceforge.net/">Sparta-XML</a></p>
+</ul><p>It requires <a href="http://sparta-xml.sourceforge.net/">Sparta-XML</a>.</p>
 
-<p>Usage</p>
+<p>The java-rss jar is available <a href="https://github.com/gmjordan/java-rss/raw/master/target/java-rss-1.0.0.jar">here</a></p>
+
+<h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
 
 <div class="highlight highlight-java"><pre><span class="o">...</span>
 <span class="n">RssParser</span> <span class="n">rss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RssParser</span><span class="o">();</span>
 
 <span class="k">try</span> <span class="o">{</span>
-    <span class="c1">// WSJ feed</span>
+    <span class="c1">// feed url</span>
     <span class="n">RssFeed</span> <span class="n">rssFeed</span> <span class="o">=</span> <span class="n">rss</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">"http://online.wsj.com/xml/rss/3_7014.xml"</span><span class="o">);</span>
 
-    <span class="c1">// Gets the channel information of the feed and display its title</span>
     <span class="n">RssChannel</span> <span class="n">rssChannel</span> <span class="o">=</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssChannel</span><span class="o">();</span>
     <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Title: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
     <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Pub Date: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getPubDate</span><span class="o">());</span>
     <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Last Build Date: "</span> <span class="o">+</span> <span class="n">rssChannel</span><span class="o">.</span><span class="na">getLastBuildDate</span><span class="o">());</span>
 
-    <span class="c1">// Gets the image of the feed and display the image URL</span>
     <span class="n">RssImage</span> <span class="n">rssImage</span> <span class="o">=</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssImage</span><span class="o">();</span>
     <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Feed Image: "</span> <span class="o">+</span> <span class="n">rssImage</span><span class="o">.</span><span class="na">getUrl</span><span class="o">());</span>
 
-    <span class="c1">// Gets and iterate the items of the feed</span>
     <span class="k">for</span><span class="o">(</span><span class="n">RssItem</span> <span class="n">rssItem</span> <span class="o">:</span> <span class="n">rssFeed</span><span class="o">.</span><span class="na">getRssItems</span><span class="o">()){</span>
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Title: "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getTitle</span><span class="o">());</span>
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Link : "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getLink</span><span class="o">());</span>
         <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Desc.: "</span> <span class="o">+</span> <span class="n">rssItem</span><span class="o">.</span><span class="na">getDescription</span><span class="o">());</span>
     <span class="o">}</span>
-
 
 <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// Something to do if an exception occurs</span>
