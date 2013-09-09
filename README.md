@@ -4,7 +4,7 @@ Java RSS parser based on [horrorss](https://code.google.com/p/horrorss/). Update
 
 * last build date (with ATOM via updated)
 
-It requires [Sparta-XML](http://sparta-xml.sourceforge.net/). There is no maven dependenct 
+It requires [Sparta-XML](http://sparta-xml.sourceforge.net/).
 
 The java-rss jar is available [here](https://github.com/gmjordan/java-rss/raw/master/target/java-rss-1.0.0.jar)
 
