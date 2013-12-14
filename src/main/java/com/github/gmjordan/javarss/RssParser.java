@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,11 +39,13 @@ public class RssParser {
 
 	private String filename;
 
+	private Integer timeout;
+
 	private String xPath;
 
 	private int rssType;
 
-	private String charset = "utf8";
+	private String charset = "UTF-8";
 
 	private String cacheDir;
 
@@ -96,8 +98,9 @@ public class RssParser {
 		return this.getRssFeed();
 	}
 
-	public RssFeed load(String filename) throws Exception {
+	public RssFeed load(String filename, int timeout) throws Exception {
 		this.filename = filename;
+		this.timeout = timeout;
 		this.load();
 		return this.getRssFeed();
 	}
@@ -139,6 +142,7 @@ public class RssParser {
 		String pubDate, updated;
 
 		try {
+
 			res.setTitle(doc.xpathSelectString("/feed/title/text()"));
 			res.setDescription(doc.xpathSelectString("/feed/tagline/text()"));
 			res.setLink(doc.xpathSelectString("/feed/link/@href"));
@@ -416,7 +420,7 @@ public class RssParser {
 
 	private void parseFromURL() throws Exception {
 		if (cacheLifeTime == 0) {
-			this.parseFromReader(this.getReaderFromUrl(filename));
+			this.parseFromReader(this.getReaderFromUrl(filename, timeout));
 		} else {
 			this.parseFromCache();
 		}
@@ -425,7 +429,7 @@ public class RssParser {
 	private void parseFromCache() throws Exception {
 		String encFilename = this.encode(filename);
 		if (this.cacheExpired()) {
-			this.saveURL(filename, cacheDir, encFilename);
+			this.saveURL(filename, timeout, cacheDir, encFilename);
 		}
 		filename = cacheDir + "/" + encFilename;
 		this.parseFromFile();
@@ -448,10 +452,10 @@ public class RssParser {
 		return res;
 	}
 
-	private boolean saveURL(String url, String path, String filename) throws IOException {
+	private boolean saveURL(String url, Integer timeout, String path, String filename) throws IOException {
 		boolean res = false;
 		this.checkPath(path);
-		BufferedReader buffer = getReaderFromUrl(url);
+		BufferedReader buffer = getReaderFromUrl(url, timeout);
 		if (buffer != null) {
 			try {
 				FileOutputStream f = new FileOutputStream(path + "/" + filename);
@@ -498,13 +502,19 @@ public class RssParser {
 		return buffer;
 	}
 
-	private BufferedReader getReaderFromUrl(String url) throws IOException {
+	private BufferedReader getReaderFromUrl(String url, int timeout) throws IOException {
 		BufferedReader buffer = null;
 		try {
 			URL urlConn = new URL(url);
-			URLConnection conn = urlConn.openConnection();
-			InputStreamReader input = new InputStreamReader(conn.getInputStream(), charset);
-			buffer = new BufferedReader(input);
+			HttpURLConnection conn = (HttpURLConnection) urlConn.openConnection();
+
+			conn.setConnectTimeout(timeout);
+
+			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				InputStreamReader input = new InputStreamReader(conn.getInputStream(), charset);
+				buffer = new BufferedReader(input);
+			}
+
 			return buffer;
 		}
 		catch (IOException e) {
